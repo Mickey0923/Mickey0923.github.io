@@ -1,0 +1,98 @@
+@mixin clearfix {
+    &:after {
+        clear: both;
+        content: '.';
+        display: block;
+        height: 0;
+        line-height: 0;
+        overflow: hidden;
+    }
+    *height: 1%;
+}
+
+#home {
+    color: #000;
+    .home_t {
+        text-align: center;
+        padding: 0.463rem 0 2.0833rem 0;
+        p {
+            color: #999999;
+            font-size: 0.3333rem;
+        }
+        h1 {
+            color: #33cc99;
+            font-size: 0.3889rem;
+        }
+    }
+    .home_c {
+        text-align: center;
+        >img {
+            width: 0.6667rem;
+            height: 0.6667rem;
+            margin-bottom: 0.5185rem;
+        }
+        h2 {
+            color: #999999;
+            font-size: 0.4444rem;
+            padding-bottom: 0.463rem;
+            &.on {
+                color: #21ce8f;
+            }
+            img {
+                width: 0.453rem;
+                height: 0.453rem;
+                margin-left: 5px;
+                vertical-align: -3px;
+            }
+        }
+        p {
+            color: #999999;
+            font-size: 0.3333rem;
+        }
+        >ul {
+            margin-top: 1.8519rem;
+            padding: 0 0.5093rem;
+            >li {
+                display: -webkit-box;
+                display: -webkit-flex;
+                display: -ms-flexbox;
+                display: flex;
+                align-items: center;
+                padding-bottom: 0.8796rem;
+                span {
+                    flex: 1;
+                    -webkit-flex: 1;
+                    font-size: 0.3889rem;
+                    text-align: left;
+                    color: #999999;
+                    &.on {
+                        text-align: right;
+                        color: #33cc99;
+                    }
+                }
+            }
+        }
+    }
+    .home_b {
+        position: absolute;
+        bottom: 0.3778rem;
+        width: 100%;
+        padding: 0 0.4167rem;
+        left: 0;
+        right: 0;
+        margin: auto;
+        p {
+            color: #999999;
+            font-size: 0.3333rem;
+            margin-bottom: 0.4167rem;
+        }
+        .btn {
+            background-color: #33cc99;
+            color: #ffffff;
+        }
+    }
+}
+
+body .mint-msgbox-message {
+    line-height: 25px;
+}

@@ -1,0 +1,838 @@
+$b:#0558c9;
+$bh:#1674f3;
+@mixin bdrs($val:5px) {
+    -webkit-border-radius: $val;
+    border-radius: $val;
+}
+
+
+/*隐藏一行*/
+
+@mixin oh() {
+    overflow: hidden;
+    white-space: nowrap;
+    -ms-text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+}
+
+
+/*隐藏多行*/
+
+@mixin oh2($val:2) {
+    display: -webkit-box;
+    overflow: hidden;
+    -ms-text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: #{$val};
+    -webkit-box-orient: vertical;
+}
+
+@mixin tran($val:0.3s) {
+    transition: all $val;
+    -webkit-transition: all $val;
+    -moz-transition: all $val;
+    -o-transition: all $val;
+}
+
+@mixin transform($transforms) {
+    -ms-transform: $transforms;
+    -webkit-transform: $transforms;
+    -moz-transform: $transforms;
+    -o-transform: $transforms;
+    transform: $transforms;
+}
+
+@mixin scale($scale) {
+    -webkit-transform: scale($scale);
+    -moz-transform: scale($scale);
+    -ms-transform: scale($scale);
+    -o-transform: scale($scale);
+    transform: scale($scale);
+}
+
+@mixin rotate($rotate) {
+    -webkit-transform: rotate($rotate);
+    -moz-transform: rotate($rotate);
+    -ms-transform: rotate($rotate);
+    -o-transform: rotate($rotate);
+    transform: rotate($rotate);
+}
+
+@mixin translateX($translateX) {
+    -webkit-transform: translateX($translateX);
+    -moz-transform: translateX($translateX);
+    -ms-transform: translateX($translateX);
+    -o-transform: translateX($translateX);
+    transform: translateX($translateX);
+}
+
+@mixin translateY($translateY) {
+    -webkit-transform: translateY($translateY);
+    -moz-transform: translateY($translateY);
+    -ms-transform: translateY($translateY);
+    -o-transform: translateY($translateY);
+    transform: translateY($translateY);
+}
+
+
+/* rotate*/
+
+@mixin rotate ($deg) {
+    @include transform(rotate(#{$deg}deg));
+}
+
+
+/* scale*/
+
+@mixin scale($scale) {
+    @include transform(scale($scale));
+}
+
+
+/* translate*/
+
+@mixin translate ($x, $y) {
+    @include transform(translate($x, $y));
+}
+
+
+/* skew*/
+
+@mixin skew ($x, $y) {
+    @include transform(skew(#{$x}deg, #{$y}deg));
+}
+
+
+/*transform origin*/
+
+@mixin transform-origin ($origin) {
+    moz-transform-origin: $origin;
+    -ms-transform-origin: $origin;
+    -webkit-transform-origin: $origin;
+    -moz-transform-origin: $origin;
+    -o-transform-origin: $origin;
+    transform-origin: $origin;
+}
+
+
+/*display:inline-block;IE6,7块级元素对inline-block支持不好，需要触发Layout；内联元素就不需要了。*/
+
+@mixin dib() {
+    display: inline-block;
+    *display: inline;
+    *zoom: 1;
+}
+
+
+/*shadow*/
+
+@function makelongshadow($color) {
+    $val: 0px 0px $color;
+    @for $i from 1 through 200 {
+        $val: #{$val},
+        #{$i}px #{$i}px #{$color};
+    }
+    @return $val;
+}
+
+
+/*清楚浮动*/
+
+@mixin clearfix {
+    &:after {
+        clear: both;
+        content: '.';
+        display: block;
+        height: 0;
+        line-height: 0;
+        overflow: hidden;
+    }
+    *height: 1%;
+}
+
+
+/*清楚浮动2 兼容ie6+*/
+
+%clearfix {
+    *zoom: 1;
+    &:before,
+    &:after {
+        content: " ";
+        display: table;
+    }
+    &:after {
+        clear: both;
+    }
+}
+
+
+/*使用方法 .container-with-floated-children {@extend %clearfix;}       */
+
+
+/*rem字号*/
+
+@function px2em($px, $base-font-size: 16px) {
+    @if (unitless($px)) {
+        @warn "Assuming #{$px} to be in pixels, attempting to convert it into pixels for you";
+        @return px2em($px + 0px);
+        /* That may fail.*/
+    }
+    @else if (unit($px)==rem) {
+        @return $px;
+    }
+    @return ($px / $base-font-size) * 0.3rem;
+}
+
+
+/*border*/
+
+@mixin bd($col, $val:1px) {
+    border: $val solid $col;
+}
+
+
+/*border分支*/
+
+@mixin bdk($key, $col, $val:1px) {
+    border-#{$key}: $val solid $col;
+}
+
+
+/*最小高度，IE6不支持min-height，但是使用height能达到一样的效果*/
+
+@mixin minHeight($min-height) {
+    min-height: $min-height;
+    height: auto !important;
+    height: $min-height;
+}
+
+
+/*使用纯CSS现实三角形，兼容所有浏览器；使用了三个参数，第一个是"方向"，第二个是"大小"，第三个是"颜色"*/
+
+@mixin arrow($direction, $size, $color) {
+    width: 0;
+    height: 0;
+    line-height: 0;
+    font-size: 0;
+    overflow: hidden;
+    border-width: $size;
+    cursor: pointer;
+    @if $direction==top {
+        border-style: dashed dashed solid dashed;
+        border-color: transparent transparent $color transparent;
+        border-top: none;
+    }
+    @else if $direction==bottom {
+        border-style: solid dashed dashed dashed;
+        border-color: $color transparent transparent transparent;
+        border-bottom: none;
+    }
+    @else if $direction==right {
+        border-style: dashed dashed dashed solid;
+        border-color: transparent transparent transparent $color;
+        border-right: none;
+    }
+    @else if $direction==left {
+        border-style: dashed solid dashed dashed;
+        border-color: transparent $color transparent transparent;
+        border-left: none;
+    }
+}
+
+
+/*定义keyframes:*/
+
+
+/*animationName: 动画名称; 默认： animation,*/
+
+
+/*keyframes: keyframes 的帧运动；默认： 无 ,*/
+
+
+/*duration: 持续时间,waitTimg:延迟; 默认： 1s,*/
+
+
+/*timingFunction: 运动曲线,*/
+
+
+/*iterationCount: 播放次数*/
+
+@mixin animation($options: ()) {
+    $options: map-merge(( animationName: animation, duration: 1, waitTime: 0, timingFunction: linear, iterationCount: infinite), $options);
+    $name: map-get($options, animationName);
+    $kf: map-get($options, keyframes);
+    $kfLength: length($kf);
+    $duration: map-get($options, duration);
+    $waitTime: map-get($options, waitTime);
+    $timingFunction: map-get($options, timingFunction);
+    $iterationCount: map-get($options, iterationCount);
+    $counter: 1;
+    /* index of 'each'*/
+    @-webkit-keyframes #{$name} {
+        @each $frame,
+        $prop in $kf {
+            #{$frame * $duration / ($duration + $waitTime)}% {
+                @each $k,
+                $v in $prop {
+                    #{$k}: #{$v}
+                }
+            }
+            /* if last in loop and waitTime is not 0, add the last frame as 100% (this is what creates the pause)*/
+            @if $counter==$kfLength and $waitTime>0 {
+                100% {
+                    @each $k,
+                    $v in $prop {
+                        #{$k}: #{$v}
+                    }
+                }
+            }
+            $counter: $counter+1;
+        }
+    }
+    @-moz-keyframes #{$name} {
+        @each $frame,
+        $prop in $kf {
+            #{$frame * $duration / ($duration + $waitTime)}% {
+                @each $k,
+                $v in $prop {
+                    #{$k}: #{$v}
+                }
+            }
+            /* if last in loop and waitTime is not 0, add the last frame as 100% (this is what creates the pause)*/
+            @if $counter==$kfLength and $waitTime>0 {
+                100% {
+                    @each $k,
+                    $v in $prop {
+                        #{$k}: #{$v}
+                    }
+                }
+            }
+            $counter: $counter+1;
+        }
+    }
+    @-o-keyframes #{$name} {
+        @each $frame,
+        $prop in $kf {
+            #{$frame * $duration / ($duration + $waitTime)}% {
+                @each $k,
+                $v in $prop {
+                    #{$k}: #{$v}
+                }
+            }
+            /* if last in loop and waitTime is not 0, add the last frame as 100% (this is what creates the pause)*/
+            @if $counter==$kfLength and $waitTime>0 {
+                100% {
+                    @each $k,
+                    $v in $prop {
+                        #{$k}: #{$v}
+                    }
+                }
+            }
+            $counter: $counter+1;
+        }
+    }
+    @keyframes #{$name} {
+        @each $frame,
+        $prop in $kf {
+            #{$frame * $duration / ($duration + $waitTime)}% {
+                @each $k,
+                $v in $prop {
+                    #{$k}: #{$v}
+                }
+            }
+            /* if last in loop and waitTime is not 0, add the last frame as 100% (this is what creates the pause)*/
+            @if $counter==$kfLength and $waitTime>0 {
+                100% {
+                    @each $k,
+                    $v in $prop {
+                        #{$k}: #{$v}
+                    }
+                }
+            }
+            $counter: $counter+1;
+        }
+    }
+    -webkit-animation: #{$name} #{$duration}s #{$timingFunction} #{$iterationCount};
+    -moz-animation: #{$name} #{$duration}s #{$timingFunction} #{$iterationCount};
+    -o-animation: #{$name} #{$duration}s #{$timingFunction} #{$iterationCount};
+    animation: #{$name} #{$duration}s #{$timingFunction} #{$iterationCount};
+}
+
+
+/*上面的keyframe使用例子*/
+
+
+/*.anime {*/
+
+
+/*    @include animation( ( animationName: zoom, keyframes: ( 0: ( transform: scale(1), background-color: blue), 50: ( transform: scale(2), background-color: green), 100: ( transform: scale(3), background-color: red)), duration: 2, waitTime: 1, timingFunction: ease, iterationCount: infinite));*/
+
+
+/*}*/
+
+
+/*calc*/
+
+@mixin calc($property, $expression) {
+    #{$property}: -webkit-calc(#{$expression});
+    #{$property}: -moz-calc(#{$expression});
+    #{$property}: calc(#{$expression});
+}
+
+
+/*按钮hover*/
+
+@mixin mores($width, $height, $bgc:#000, $col:#fff, $fz:16px) {
+    width: $width;
+    height: $height;
+    line-height: $height;
+    display: inline-block;
+    background-color: $bgc;
+    color: $col;
+    font-size: $fz;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    outline: none;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    &:before {
+        background: #fff;
+        content: "";
+        height: 155px;
+        left: -75px;
+        opacity: 0.3;
+        position: absolute;
+        top: -50px;
+        -webkit-transform: rotate(35deg);
+        -ms-transform: rotate(35deg);
+        -moz-transform: rotate(35deg);
+        -o-transform: rotate(35deg);
+        transform: rotate(35deg);
+        width: 50px;
+        z-index: 10;
+    }
+    &:hover:before {
+        left: 120%;
+        -webkit-transition: all 550ms cubic-bezier(0.19, 1, 0.22, 1);
+        -o-transition: all 550ms cubic-bezier(0.19, 1, 0.22, 1);
+        -moz-transition: all 550ms cubic-bezier(0.19, 1, 0.22, 1);
+        transition: all 550ms cubic-bezier(0.19, 1, 0.22, 1);
+    }
+}
+
+
+/*媒体查询*/
+
+$breakpoints: ( 'a': 'only screen and ( min-width: 320px)', 'b': 'only screen and ( min-width: 375px)', 'c': 'only screen and ( min-width: 414px)', 'xs': 'only screen and ( min-width: 480px)', 'sm': 'only screen and ( min-width: 768px)', 'md': 'only screen and ( min-width: 992px)', 'lg': 'only screen and ( min-width: 1200px)', 'lgg': 'only screen and ( min-width: 1400px)', 'maxxs': 'only screen and ( max-width: 640px)', 'maxsm': 'only screen and ( max-width: 750px)', 'maxmd': 'only screen and ( max-width: 1000px)', 'maxlg': 'only screen and ( max-width: 1200px)', 'maxlgg': 'only screen and ( max-width: 1600px)', ) !default;
+@mixin respond-to($breakpoint) {
+    $query: map-get($breakpoints, $breakpoint);
+    @if not $query {
+        @error 'No value found for `#{$breakpoint}`. Please make sure it is defined in `$breakpoints` map.';
+    }
+    @media #{if(type-of($query) == 'string', unquote($query), inspect($query))} {
+        @content;
+    }
+}
+
+
+/* 字体尺寸以及字体回退*/
+
+@function calculateRem($size) {
+    $remSize: $size / 16px;
+    @return $remSize * 0.16rem;
+}
+
+@mixin font-size($size) {
+    font-size: $size;
+    font-size: calculateRem($size);
+}
+
+
+/*使用方法  p {@include font-size(14px)}    快捷键：sis;    */
+
+
+/*跨浏览器的opacity*/
+
+@mixin opacity($opacity) {
+    opacity: $opacity;
+    $opacity-ie: $opacity * 100;
+    filter: alpha(opacity=$opacity-ie);
+    /*IE8*/
+}
+
+
+/*使用方法 @include opacity(0.8);  快捷sip*/
+
+
+/*隐藏元素*/
+
+%visuallyhidden {
+    margin: -1px;
+    padding: 0;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    clip: rect(0, 0, 0, 0);
+    position: absolute;
+}
+
+
+/*使用方法.  visually-hidden { @extend %visuallyhidden;}          */
+
+
+/*上下居中  ie9+*/
+
+@mixin vertical-align {
+    position: relative;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+
+/*rgba  白色黑色*/
+
+@function black($opacity) {
+    @return rgba(0, 0, 0, $opacity)
+}
+
+@function white($opacity) {
+    @return rgba(255, 255, 255, $opacity);
+}
+
+
+/*行高*/
+
+@mixin line-height($heightValue: 12) {
+    line-height: $heightValue + px;
+    /*fallback for old browsers */
+    line-height: (0.08 * $heightValue) + rem;
+}
+
+
+/*图片标题*/
+
+@mixin animated-caption($font-color, $bg-color, $bg-opacity, $padding, $transition-speed) {
+    display: inline-block;
+    position: relative;
+    overflow: hidden;
+    & img {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+    & span.cover {
+        display: block;
+        width: 100%;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        padding: $padding;
+        color: $font-color;
+        position: absolute;
+        bottom: -100px;
+        -webkit-transition: bottom $transition-speed ease;
+        -moz-transition: bottom $transition-speed ease;
+        -o-transition: bottom $transition-speed ease;
+        transition: bottom $transition-speed ease;
+        & span.inner {
+            margin: 0px;
+            position: relative;
+        }
+        &:before {
+            content: " ";
+            display: block;
+            position: absolute;
+            z-index: 0;
+            left: 0px;
+            top: 0px;
+            width: 100%;
+            height: 100%;
+            background: $bg-color;
+            filter: alpha(opactiy=($bg-opacity * 100));
+            -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=#{$bg-opacity * 100})";
+            -moz-opacity: $bg-opacity;
+            -khtml-opacity: $bg-opacity;
+            opacity: $bg-opacity;
+        }
+    }
+    &:hover span.cover {
+        bottom: 0px;
+    }
+}
+
+
+/*使用方法  字体颜色，背景颜色，背景透明，padding，transition,*/
+
+
+/*2017-7-26 新增*/
+
+@mixin size($width, $height: $width) {
+    width: $width;
+    height: $height;
+}
+
+@mixin square($size) {
+    @include size($size, $size);
+}
+
+
+/*2017-7-28    使用方法sbw*/
+
+@mixin bWidth($width, $height, $color, $vel:0) {
+    width: $width;
+    height: $height;
+    background-color: $color;
+    margin: $vel;
+    display: block;
+}
+
+//2017-8-22
+// .leftUp .big {
+//     -webkit-animation-name: leftUp;
+//     animation-name: leftUp;
+// }
+// @-webkit-keyframes leftUp {
+//     0% {
+//         transform: scale(1.1, 1.1) translate(4.545%, 4.545%);
+//     }
+//     100% {
+//         transform: scale(1.1, 1.1) translate(-4.545%, -4.545%);
+//     }
+// }
+// @keyframes leftUp {
+//     0% {
+//         transform: scale(1.1, 1.1) translate(4.545%, 4.545%);
+//     }
+//     100% {
+//         transform: scale(1.1, 1.1) translate(-4.545%, -4.545%);
+//     }
+// }
+// .moveRight .big {
+//     -webkit-animation-name: moveRight;
+//     animation-name: moveRight;
+// }
+// @-webkit-keyframes moveRight {
+//     0% {
+//         transform: scale(1.1, 1.1) translate(-4.545%, 0);
+//     }
+//     100% {
+//         transform: scale(1.1, 1.1) translate(4.545%, 0);
+//     }
+// }
+// @keyframes moveRight {
+//     0% {
+//         transform: scale(1.1, 1.1) translate(-4.545%, 0);
+//     }
+//     100% {
+//         transform: scale(1.1, 1.1) translate(4.545%, 0);
+//     }
+// }
+// .moveDown .big {
+//     -webkit-animation-name: moveDown;
+//     animation-name: moveDown;
+// }
+// @-webkit-keyframes moveDown {
+//     0% {
+//         transform: scale(1.1, 1.1) translate(0, -4.545%);
+//     }
+//     100% {
+//         transform: scale(1.1, 1.1) translate(0, 4.545%);
+//     }
+// }
+// @keyframes moveDown {
+//     0% {
+//         transform: scale(1.1, 1.1) translate(0, -4.545%);
+//     }
+//     100% {
+//         transform: scale(1.1, 1.1) translate(0, 4.545%);
+//     }
+// }
+// .centerBig .big {
+//     -webkit-animation-name: centerBig;
+//     animation-name: centerBig;
+// }
+// @-webkit-keyframes centerBig {
+//     100% {
+//         transform: scale(1.1, 1.1);
+//     }
+// }
+// @keyframes centerBig {
+//     100% {
+//         transform: scale(1.1, 1.1);
+//     }
+// }
+// .rightDownBig .big {
+//     -webkit-animation-name: rightDownBig;
+//     animation-name: rightDownBig;
+// }
+// @-webkit-keyframes rightDownBig {
+//     100% {
+//         transform: scale(1.1, 1.1) translate(4%, 4%);
+//     }
+// }
+// @keyframes rightDownBig {
+//     100% {
+//         transform: scale(1.1, 1.1) translate(4%, 4%);
+//     }
+// }
+
+/************************************************************************************************************************/
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    font-family: sans-serif;
+    line-height: 1.15;
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+    -ms-overflow-style: scrollbar;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    font-size: 0.3889rem;
+    font-weight: 500;
+    line-height: 1.5;
+    color: #212529;
+    text-align: left;
+    background-color: #fff;
+    position: relative;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin-top: 0;
+    margin-bottom: 0;
+    font-weight: 500;
+}
+
+p {
+    margin-top: 0;
+    margin-bottom: 0rem;
+}
+
+ol,
+ul,
+dl {
+    margin-top: 0;
+    margin-bottom: 0rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+a {
+    color: #007bff;
+    text-decoration: none;
+    background-color: transparent;
+    -webkit-text-decoration-skip: objects;
+}
+
+a:hover {
+    color: #0056b3;
+    text-decoration: underline;
+}
+
+img {
+    vertical-align: middle;
+    border-style: none;
+}
+
+input {
+    font-size: 0.3704rem;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+th {
+    text-align: inherit;
+}
+
+label {
+    display: inline-block;
+    margin-bottom: 0rem;
+}
+
+button {
+    border-radius: 0;
+}
+
+button:focus {
+    outline: 1px dotted;
+    outline: 5px auto -webkit-focus-ring-color;
+}
+
+textarea {
+    overflow: auto;
+    resize: vertical;
+}
+
+.after:after {
+    content: ".";
+    height: 0;
+    visibility: hidden;
+    display: block;
+    clear: both;
+    font-size: 0;
+    line-height: 0;
+}
+
+.after {
+    zoom: 1;
+    _zoom: 1;
+}
+
+input {
+    &:focus {
+        border: 0;
+        outline: 0;
+    }
+}
+
+#app {
+    padding: 0 0.4167rem;
+}
+
+.l {
+    background-color: #33cc99;
+    color: #ffffff;
+    font-size: 0.3889rem;
+}
+
+.foot {
+    position: absolute;
+    bottom: 0.3778rem;
+    width: 9.1667rem;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+
+.back {
+    font-size: 0.3889rem;
+    margin-top: 10px;
+}
+
+.mint-indicator-mask {
+    z-index: 999;
+}

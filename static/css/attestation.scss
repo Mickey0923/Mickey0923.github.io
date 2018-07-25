@@ -1,0 +1,197 @@
+@mixin clearfix {
+    &:after {
+        clear: both;
+        content: '.';
+        display: block;
+        height: 0;
+        line-height: 0;
+        overflow: hidden;
+    }
+    *height: 1%;
+}
+
+.attes_list {
+    margin-top: 0.2778rem;
+    >li {
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        align-items: center;
+        padding: 15px 7px;
+        border-bottom: 0.0093rem solid #ccc;
+        font-size: 0.3704rem;
+        >span {
+            flex: 1;
+            -webkit-flex: 1;
+            color: #666666;
+        }
+        div {
+            flex: 2;
+            -webkit-flex: 2;
+            >.sex {
+                width: 100%;
+                border: 0;
+                outline: 0;
+                text-align: right;
+                color: #999;
+                position: relative;
+                padding-right: 15px;
+                img {
+                    width: 20px;
+                    vertical-align: -5px;
+                    position: absolute;
+                    right: -7px;
+                    top: 0;
+                    bottom: 0;
+                    margin: auto;
+                }
+                &.on {
+                    color: #333333;
+                }
+            }
+            input {
+                width: 100%;
+                border: 0;
+                outline: 0;
+                text-align: right;
+                color: #333333;
+            }
+            p {
+                text-align: right;
+            }
+            &.yan {
+                display: -webkit-box;
+                display: -webkit-flex;
+                display: -ms-flexbox;
+                display: flex;
+                align-items: center;
+                input {
+                    flex: 1;
+                    -webkit-flex: 1;
+                }
+                .l {
+                    flex: .45;
+                    -webkit-flex: .45;
+                    margin-left: 10px;
+                    font-size: 0.3552rem;
+                }
+            }
+        }
+    }
+}
+
+.mint-popup {
+    width: 100%;
+    @include clearfix();
+    .picker-items {
+        width: 100%;
+    }
+    .picker-toolbar {
+        height: inherit;
+    }
+    .picker {
+        >div {
+            @include clearfix();
+            padding: 10px;
+            border-bottom: solid 1px #eaeaea;
+        }
+        .mint-datetime-action {
+            width: inherit;
+            font-size: 14px;
+            padding: 0 12px;
+            height: 33px;
+            line-height: 33px;
+            color: #656b79;
+            background-color: #f6f8fa;
+            -webkit-box-shadow: 0 0 1px #b8bbbf;
+            box-shadow: 0 0 1px #b8bbbf;
+            border-radius: 5px;
+        }
+        .mint-datetime-confirm {
+            background-color: #33cc99;
+            color: #ffffff;
+        }
+    }
+    .sure {
+        float: right;
+    }
+}
+
+.ats_end {
+    margin-bottom: 0.4504rem;
+    li {
+        margin-top: 0.4944rem;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        >div {
+            flex: 1;
+            -webkit-flex: 1;
+            img {
+                max-width: 100%;
+                width: 4.3519rem;
+                height: 2.7778rem;
+            }
+            &.ats_l {
+                border: 1px solid #99e5cc;
+                border-radius: 5px;
+                padding: 0.0926rem;
+                margin-right: 15px;
+                position: relative;
+                .camera {
+                    position: absolute;
+                    bottom: 0.2778rem;
+                    right: 0.2778rem;
+                    width: 1.2037rem;
+                    height: 1.2037rem;
+                }
+                .file {
+                    position: absolute;
+                    bottom: 0.2778rem;
+                    right: 0.2778rem;
+                    width: 1.2037rem;
+                    height: 1.2037rem;
+                    opacity: 0;
+                    z-index: 9;
+                }
+            }
+            &.ats_r {
+                h2 {
+                    font-size: 0.3889rem;
+                    color: #33cc99;
+                    margin-bottom: 0.363rem;
+                    margin-top: 0.0926rem;
+                }
+                p {
+                    font-size: 0.2963rem;
+                    color: #666666;
+                    b {
+                        color: #ff5f5f;
+                        font-weight: 400;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.cheat {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    background-color: rgba(0, 0, 0, .5);
+    img {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        margin: auto;
+        max-width: 100%;
+    }
+}

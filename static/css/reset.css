@@ -1,0 +1,193 @@
+@charset "UTF-8";
+/*隐藏一行*/
+/*隐藏多行*/
+/* rotate*/
+/* scale*/
+/* translate*/
+/* skew*/
+/*transform origin*/
+/*display:inline-block;IE6,7块级元素对inline-block支持不好，需要触发Layout；内联元素就不需要了。*/
+/*shadow*/
+/*清楚浮动*/
+/*清楚浮动2 兼容ie6+*/
+/*使用方法 .container-with-floated-children {@extend %clearfix;}       */
+/*rem字号*/
+/*border*/
+/*border分支*/
+/*最小高度，IE6不支持min-height，但是使用height能达到一样的效果*/
+/*使用纯CSS现实三角形，兼容所有浏览器；使用了三个参数，第一个是"方向"，第二个是"大小"，第三个是"颜色"*/
+/*定义keyframes:*/
+/*animationName: 动画名称; 默认： animation,*/
+/*keyframes: keyframes 的帧运动；默认： 无 ,*/
+/*duration: 持续时间,waitTimg:延迟; 默认： 1s,*/
+/*timingFunction: 运动曲线,*/
+/*iterationCount: 播放次数*/
+/*上面的keyframe使用例子*/
+/*.anime {*/
+/*    @include animation( ( animationName: zoom, keyframes: ( 0: ( transform: scale(1), background-color: blue), 50: ( transform: scale(2), background-color: green), 100: ( transform: scale(3), background-color: red)), duration: 2, waitTime: 1, timingFunction: ease, iterationCount: infinite));*/
+/*}*/
+/*calc*/
+/*按钮hover*/
+/*媒体查询*/
+/* 字体尺寸以及字体回退*/
+/*使用方法  p {@include font-size(14px)}    快捷键：sis;    */
+/*跨浏览器的opacity*/
+/*使用方法 @include opacity(0.8);  快捷sip*/
+/*隐藏元素*/
+/*使用方法.  visually-hidden { @extend %visuallyhidden;}          */
+/*上下居中  ie9+*/
+/*rgba  白色黑色*/
+/*行高*/
+/*图片标题*/
+/*使用方法  字体颜色，背景颜色，背景透明，padding，transition,*/
+/*2017-7-26 新增*/
+/*2017-7-28    使用方法sbw*/
+/************************************************************************************************************************/
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-family: sans-serif;
+  line-height: 1.15;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  -ms-overflow-style: scrollbar;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-size: 0.3889rem;
+  font-weight: 500;
+  line-height: 1.5;
+  color: #212529;
+  text-align: left;
+  background-color: #fff;
+  position: relative;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin-top: 0;
+  margin-bottom: 0;
+  font-weight: 500;
+}
+
+p {
+  margin-top: 0;
+  margin-bottom: 0rem;
+}
+
+ol,
+ul,
+dl {
+  margin-top: 0;
+  margin-bottom: 0rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+a {
+  color: #007bff;
+  text-decoration: none;
+  background-color: transparent;
+  -webkit-text-decoration-skip: objects;
+}
+
+a:hover {
+  color: #0056b3;
+  text-decoration: underline;
+}
+
+img {
+  vertical-align: middle;
+  border-style: none;
+}
+
+input {
+  font-size: 0.3704rem;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+th {
+  text-align: inherit;
+}
+
+label {
+  display: inline-block;
+  margin-bottom: 0rem;
+}
+
+button {
+  border-radius: 0;
+}
+
+button:focus {
+  outline: 1px dotted;
+  outline: 5px auto -webkit-focus-ring-color;
+}
+
+textarea {
+  overflow: auto;
+  resize: vertical;
+}
+
+.after:after {
+  content: ".";
+  height: 0;
+  visibility: hidden;
+  display: block;
+  clear: both;
+  font-size: 0;
+  line-height: 0;
+}
+
+.after {
+  zoom: 1;
+  _zoom: 1;
+}
+
+input:focus {
+  border: 0;
+  outline: 0;
+}
+
+#app {
+  padding: 0 0.4167rem;
+}
+
+.l {
+  background-color: #33cc99;
+  color: #ffffff;
+  font-size: 0.3889rem;
+}
+
+.foot {
+  position: absolute;
+  bottom: 0.3778rem;
+  width: 9.1667rem;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+
+.back {
+  font-size: 0.3889rem;
+  margin-top: 10px;
+}
+
+.mint-indicator-mask {
+  z-index: 999;
+}
